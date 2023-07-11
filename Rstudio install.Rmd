@@ -1,0 +1,734 @@
+---
+title: "Introducing R"
+output: 
+  learnr::tutorial:
+    theme: cerulean
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE, warning = FALSE, message = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(learnr)
+library(dplyr)
+library(flextable)
+```
+
+## R for biological data science
+
+This module is an introduction to using the R software through the R Studio interface.
+R is both a computer software and a programming language that can be used for powerful data analysis and will be used across several of the taught modules that you will undertake. R is now widely used in Government bodies (e.g. NHS, Natural England), media organisations, e.g. [BBC](https://bbc.github.io/rcookbook/), The Guardian, [Financial Times](https://blog.revolutionanalytics.com/2018/06/ft-bbc-uses-r.html), plus research institutes (Centre for Ecology & Hydrology, Francis Crick Institute) as well as academia. This is because of its flexibility, powerful data analytics and visualisation capabilities. It has a steep initial learning curve (don't panic!) but then becomes much easier. Graduates with strong data science skills in using R are in high demand by employers so it is also a useful addition to your CV.
+
+### R vs RStudio
+R is the basic underlying computer software you use to undertake analyses of biological data. RStudio is a separate programme that creates an "Integrated Development Environment" (IDE) that makes it easier to do data science. Think of the differences between doing arithmetic on a hand-calculator vs Microsoft Excel. RStudio defaults to automatically uses R, but can handle other computer languages such as C++, HTML and Python.
+
+### Starting RStudio
+Campus computers have the software installed and BIO2020 assumes you will be using an NUIT-managed PC. Both R and RStudio are free download from [download the R software](https://cran.r-project.org/) and [Download the R Studio desktop software](https://rstudio.com/products/rstudio/#rstudio-desktop) respectively. However, if you run it on your own laptop or MacBook we **will not provide you with any technical support** as there is too much variation between operating systems, PC configuration etc.
+
+You should have a 'search' bar at the bottom left of your NUIT Windows PC, labelled _Type here to search_. In it type **_RStudio_** and the launch icon should be displayed for you to click on:
+
+```{r, echo = FALSE}
+knitr::include_graphics("images/start_from_windows_menu.png")
+```
+
+
+(If you do not have a search bar, click on the Windows icon, navigate to _Programming and Databases_ or _RStudio_ and click on the _RStudio_ icon. Do **not** click on the icon labelled _R i386_ or _R x64_ )
+
+
+Once RStudio has started up you can get to work.
+
+## Modify RStudio default settings
+
+On opening R Studio you should see something like this
+
+```{r, echo = FALSE}
+knitr::include_graphics("images/Rstudiofresh.png")
+```
+
+Unfortunately RStudio has a number of default settings which from past experience is confusing for students. If you suffer from dyslexia or have poor eyesight there are several other settings you may want to change.
+
+### Startup and close defaults
+By default RStudio tries to re-open everything you last worked with (even if you are analysing new data), prompts you to store data (even when you have it stored already) etc. Let's switch off those annoying defaults. From the main menu click on **Tools -> Global options**
+
+```{r, echo = FALSE}
+knitr::include_graphics("images/tools_global.png")
+```
+
+Make sure that the following boxes are **unticked** or changed (see below):
+
+* Restore most recently opened project at startup
+* Restore previously opened source files at startup
+* Restore .RData into workspace at startup
+* Save workspace to .RData on exit. **Change to never**
+* Always save history (even when not saving .RData)
+* Remove duplicate entries in history
+
+Click on 'OK' once you have done this.
+
+```{r, echo = FALSE}
+library(knitr)
+knit_hooks$set(optipng = hook_optipng)
+include_graphics("images/unset_globals.png")
+```
+
+### Change appearance (optional)
+If like me you have poor eyesight, or e.g. have dyslexia and find some fonts difficult to read, you can modify the RStudio appearance. Again click on **Tools -> Global options** but click on the **Appearance** icon on the left. You should see something similar to below:
+
+```{r, echo = FALSE}
+knitr::include_graphics("images/appearance.png")
+```
+
+The default 'Editor theme' appearance is called Textmate, which I find rather harsh on the eyes. Preview other appearance options by clicking on them (personally I like the 'Tomorrow Night bright' theme which has a black background). You can also change the font size to make it bigger, or the Zoom ratio.
+
+## R packages
+A package is an additional 'plug-in' for R that can extend its capabilities. When R was originally created there were only about 10 add-on packages, but now there are over 20,000. This is one of the reasons why it is so popular amongst scientists: it is easy to adapt, modify and improve. Here are some of the things I've seen people use packages for:
+
+* create maps of satellite data
+* analyse GPS animal movement data
+* visualise genome sequences
+* analyse next-generation sequence MinIon data
+* create phylogenetic trees
+* plot citizen science species records
+* model flood risk
+* artificial intelligence on wildlife camera trap
+* analyse songbird audio
+* model disease spread in humans and wildlife
+* scrape data from Twitter for 'sentiment' analysis
+* write books and reports
+* create websites
+
+Packages are hosted on the Comprehensive R Archive or CRAN. As there are now so many R packages they have been organised into [Task Views](https://cran.r-project.org/web/views/) on CRAN to help you navigate them.
+
+### How to install and activate a package from CRAN
+Using a package is a 2-step process:
+
+* Install a package. This downloads software from the internet onto your computer. **It only has to be done once**. If you use NUIT cluster room PCs most of the packages you need for BIO2020 should already be available so you can skip this step. Use `install.packages("package_name")` to install a package.
+* Activate a package. This makes the extra R commands available for you to use. **It has to be done every time you use R**. Use the command `library(package_name)` to activate a package.
+
+A common mistake is to forget to use the `library()` command. I try to remember to use it first in any R session.
+
+
+## Installing a package
+R has a special function called `install.packages()` that allows you download software from the internet onto your PC. On an NUIT computer it will install it into a networked folder, so it should be available for you on any NUIT computer. **Note** Most of the packages you will need for BIO2020 should already have been installed onto the NUIT cluster room PCs, so you will only have to activate them. You would only need to do the following steps on your own laptop or MacBook, of if using a package not already pre-installed by NUIT.
+
+On the left of your RStudio screen you should see a large window headed **Console** which will contain introductory text about the R version you are usin etc. On my PC it shows as version 4.0.2 but you may have a more recent version:
+
+```{r, echo = FALSE}
+knitr::include_graphics("images/R_console_initial.png")
+```
+
+At the bottom of the Console screen is a "prompt" symbol `>` at which you can type commands. We want to add a package called "remotes" to your setup. Type the following command (notice the `.` between `install` and `packages` and the `"` before and after `remotes`):
+
+```{r, eval=FALSE}
+install.packages("remotes")
+```
+
+Then hit the Enter key, which is the large key on the right of your QWERTY keyboard. It may be indicate with a large left pointing arrow, or with the word "Enter" depending on the model of your keyboard. When you hit Enter the command is sent to R and executed. You may receive a pop-up window asking you where you want to download the package from; simply select the first one in the list (Cloud) or scroll down to a UK website, and click OK. This is what my PC displays, although yours may differ slightly:
+
+```{r, echo = FALSE}
+knitr::include_graphics("images/R_console_remotes.png")
+```
+
+If you receive an error message, double-check your spelling and punctuation in the command. Note that R is **case-sensitive** thus it will give an error if you type `Install.packages("remotes")` etc. If you still have errors, please speak to me or one of the Demonstrators. Do not worry if you merely receive warning messages.
+
+## Activating an R package
+Use the `library()` function to activate an R package. Installing an R package simply puts the extra software on your PC, but it does not make it available for use. This is because you may have many packages eventually installed, that might have commands with identical names but which do different things. To take a simple example, in some packages the `plot` command will create a map, whereas in other packages it might disply a genome phylogeny, and you would not want to confuse them. Therefore, in any R session you generally only make available the packages you need. To make the commands from a package available to use, enter the `library` command followed by the package name. So at the Console `>` prompt, type `library(remotes)` and again hit the Enter key to execute it:
+
+```{r, eval = FALSE}
+library(remotes)
+```
+
+This is what is displayed on my PC:
+
+```{r, echo = FALSE}
+knitr::include_graphics("images/R_console_library_remotes.png")
+```
+
+The warning message in red simply indicates that the version of the `remotes` package on CRAN is slightly newer than my version of R. If you have a more recent version of R you might not receive this message, but it is nothing to worry about. Having activated the `remotes` package we can now use its extra commands.
+
+### The bio2020 R package
+For this module I have created a small R package called `bio2020`. This provides you a few useful extras that should make learning R easier:
+
+* automatic installation and activation of the `mosaic` and `ggformula` packages that aid "goal-oriented" methods for data science and simple plots
+* automatic installation and activation of the `ggplot2` and `tidyr` packages for improved plots and manipulation of data
+* automatic installation and activation of the `vegan` package to handle multiple response data such as obtained from genomics sequencing or wildlife species surveys
+* automatic installation and activation of the `car` package to handle unbalanced datasets that might arise with missing data
+* customised functions for easier analysis of multiple response data
+* customised functions to display and label graphical analyses of multiple response data
+
+As the `bio2020` package is solely for use by Newcastle University students it is unsurprisingly not available on CRAN. It should already be available on the NUIT PC cluster, so all you have to do is "activate" the package to make the commands available.
+
+```{r, eval=FALSE}
+library(bio2020)
+```
+
+
+You may receive some warning messages about R version numbers. The key thing to look for is:
+
+`Welcome to the BIO2020 package to support teaching`
+
+If that is displayed then the `bio2020` package has been successfully activated and is ready for use.
+
+
+### Installing the `bio2020` package on your own laptop/Macbook (**unsupported**)
+Most R packages are stored on the CRAN website, but as the `bio2020` package is just for this course, its installation is slightly different. **Note** we are unable to provide you with any support on installing it onto your own PC. You can do most of the BIO2020 course using the `mosaic`, `tidyr`, `car` and `vegan` packages, although some commands are more difficult initially. To install `bio2020` on your own machine you would type into the Console:
+
+
+```{r, eval=FALSE}
+install.packages("remotes")
+library(remotes)
+install_github("rasanderson/bio2020")
+```
+
+
+If this fails, double check any error messages, especially Quartz drivers on MacBooks. Otherwise you will need to manually work with individual packages:
+
+
+```{r, eval=FALSE}
+install.packages("mosaic")
+install.packages("car")
+install.packages("tidyr")
+install.packages("vegan")
+```
+
+You will have to activate them individually with their own `library` calls, rather than by a single call to `bio2020`:
+
+```{r, eval=FALSE}
+library(mosaic)
+library(car)
+library(tidyr)
+```
+
+The `vegan` package is needed for the last two practicals later in the Semester, but hopefully we will have the `bio2020` package working for you by then.
+
+## Create an RStudio project
+An RStudio project is a special folder where you can safely keep all the commands for your analyses and your data files together. I generally create a separate RStudio project folder for each experiment or survey that I am involved in. We are going to start by creating an RStudio Project called 'BIO2020' to keep all of our work relating to the 'BIO2020' course together in one place. Later in your degree you will want to create new RStudio projects for other experiments or work.
+
+To create a new project click on the main menu on  `File` > `New Project`  
+You should now see this popup window, on which you should select **New directory** 
+
+```{r, echo = FALSE}
+knitr::include_graphics("http://www.rstudio.com/images/docs/projects_new.png")
+```
+
+then a **Project Type** window like the following should appear, from which you should select **New Project**:
+
+![](images/project_type.png)
+
+
+Finally, the following window, entitled **Create New Project** should appear:
+
+![](images/create_new_project.png)
+
+In this window complete two sections:
+
+* The **Directory name**. This is the name of the folder to store your files containing records of your analyses and your data . For convenience, call it **BIO2020** as shown above.
+* The section **Create project as subdirectory of:** Click on the **Browser** button and navigate to **Documents** or **My Documents**. The exact title will differ depending on your NUIT settings. This wants to be where you normally store all your folders and files. On my own PC, the "My Documents" area has a "shortcut" name of **~** which you can see displayed above. The setup might be slightly different on your PC.
+
+Finally, click on the **Create project** button at the bottom and you should now see the name of your project displayed in the top right hand side of your R Studio window. 
+
+
+### How to start RStudio in future
+Once you have created a project, all you need to do in is:
+
+* Start RStudio
+* Click on **File -> Recent projects...**
+* Select **BIO2020** from the list
+
+
+## Navigating RStudio
+
+In the top left click `file` > `new file` > `R script` and now you should have four windows that look something like this:
+
+```{r, echo = FALSE}
+knitr::include_graphics("images/Rstudio4packages.png")
+
+```
+
+
+You should now have Four panes in your R Studio window, you might notice that some of them have multiple tabs as well. Let's run through the meaning of each of the panes, and the tabs that we are going to be using:
+
+### Scripts
+ The pane in the **top left** contains your scripts. A script is a plain text file that should be saved with the extension `.R` and it contains a list of all the commands you use to import, summarise, display, analyse, plot or export data.
+ 
+One of the key reasons that R is so popular is because it allows us to make our work reproducible.
+By writing down each bit of our analysis and saving it in a script we can reproduce our work with ease. 
+Future you will thank past you for saving your code in scripts when you are making last minute edits to your dissertation and you need to remember exactly what the analysis methods you used were!
+
+### Environment
+ The pane in the **top right** has a couple of tabs but the one that we need to know about is the Environment tab.
+The Environment pane tells us what objects R has loaded in to its memory (we'll touch on this a bit more later on), these might be data files that we have imported or the results of some analyses. 
+This pane shows us the objects that R has available for doing useful stuff.
+
+### Console
+The pane in the **bottom left** also has several tabs and the one that we use is called the console.
+This pane is the 'doing pane' when we want to run bits of code that we have saved in our script we send them to the console to be executed - which means R does what our code tells it to do and we get some output.
+You have already directly typed commands into the Console to setup some intial packages. In future **strongly advise against doing this**, it is much better to write your code in a script that you can save and come back to for future reference.
+
+### Files/Plots/Packages
+
+**Bottom right pane** has several tabs that give the pane different functions that can be of use. 
+
+The ***Files*** tab can be used  a bit like windows explorer/finder to navigate through the files on your computer.
+```{r, fig.cap = " Here the files tab shows us that within the folder that we are working in there are several different files associated with the module handbook as well as a folder of images", echo = FALSE}
+knitr::include_graphics("images/Rstudio4files.png")
+```
+
+The ***Plots*** tab is where the plots that you create using the code written in your script will appear. 
+It has an export button that you can use to save your plots or to copy them to your clipboard so that you can then insert them into documents or presentations.
+
+The ***Packages*** tab shows you the packages that are installed on your computer, the ones with ticks in the boxes are ones that are loaded and ready for you to use.
+Packages are collections of code and/or data that other people have written that we can use.
+Packages mostly contain bits of code called *functions* which we will cover in a bit more depth in the 'working with data' section.
+
+
+```{r, fig.cap="You can see here that there are several packages that are installed with the R software and some pacages like the base package are already loaded and ready to use", echo = FALSE}
+knitr::include_graphics("images/Rstudio4packages.png")
+```
+
+
+
+The ***Help*** tab offers you an interactive window through which you can use the help files for R functions.
+You can use the search bar at the top of the pane to search for the help files associated with a given package or function. 
+We will cover the help files in more detail once we have got a bit more of an understanding of some of the R lingo
+
+```{r, echo = FALSE}
+knitr::include_graphics("images/Rstudio4help.png")
+```
+
+
+
+#### Think of R as your Kitchen
+
+Using R can be thought of similar to using a kitchen to cook.
+
+```{r, fig.align='center', echo = FALSE}
+knitr::include_graphics("images/Rkitchen.png")
+```
+
+There are loads of really great chefs (coders) in the world who have already figured out a lot of techniques and gadgets that can be used to make some great food.
+
+```{r, fig.align='center', echo = FALSE}
+knitr::include_graphics("images/cookr.jpg")
+```
+
+You don't always have to cook everything from scratch - you can use the information and tools that other people have provided to make your cooking experience easier and more enjoyable 
+
+
+FYI: you can change the default location of the panes, among many other things: [Customizing R Studio](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio)
+
+If you are moving panes about and you accidentally lose one don't worry, it can easily be recovered
+```{r, echo = FALSE, fig.width=8}
+knitr::include_graphics("images/recover_panels.gif")
+```
+
+
+## Working with data
+### Using R as a calculator
+You probably won't use this very often, but you can easily enter values into the Console window if you need to do some quick arithmetic:
+
+```{r}
+7 * 3
+log(24)
+4^2
+7 / 3
+pi * 3 ^ 2
+```
+
+Individual numbers, columns, rows, or tables of data, the results from calculations, statistical analyses and graphs are all **R objects** and the ones you have created in your current RStudio are shown in the top right **Environment** panel.
+
+As mentioned before R is a programming language, as with any language there is some vocab that needs to be covered in order to help your understanding of what is being described.
+
+### Creating Objects
+Although you have done some arithmetic above, it is much more useful to **assign** the results to an R object, so you can re-use them later. You do this using the assignment symbol `<-` which looks like a left arrow. If you are having trouble finding the `<` and `-` keys, a handy shortcut is to press
+
+typing <kbd>Alt</kbd> + <kbd>-</kbd> (push <kbd>Alt</kbd> at the same time as the <kbd>-</kbd> key) will write ` <- ` in a single keystroke.
+
+Now you can *assign* a value(s) to an *object* so that R remembers it. You need to come up with a name for your object. Come up with a good name!
+
+Good names:
+
+* `my_height`
+* `bird_weights`
+* `bacteria_growth`
+
+Poor names:
+
+* `my_dat`  You will soon forget what this contains
+* `Bird_wght`  You will forget the upper-case `B` and whether it is `wght`, `Wght`, `weight` etc.
+* `bacterialgrowth` Rather long and difficult to read
+
+For example, if you are 175 cm tall, you can assign your height to an R object simply by the following line:
+
+```{r object, echo = TRUE}
+my_height <- 175
+```
+
+It can be assigned and displayed:
+
+```{r your-height, exercise=TRUE}
+my_height <- 175 
+# check the new value
+my_height
+ 
+```
+
+Now that you have stored your height in the `my_height` *object* we can do some arithmetic with it.
+Run the below code to convert your height from cm to inches
+
+
+```{r your-height-in-display, exercise=TRUE}
+my_height <- 175 
+my_height/2.54
+ 
+```
+
+In the following code *value* of `my_height` is unchanged at 175 
+
+
+```{r your-height-check, exercise=TRUE}
+my_height <- 175 
+my_height/2.54
+my_height
+ 
+```
+
+You will notice that the *value* of `my_height` is still in cm, why? 
+Because we didn't store your height in inches as an object, let's do that now. We will also add some comments to make the code more readable:
+
+
+```{r your-height-inch, exercise=TRUE}
+# Assign height in cm
+my_height <- 175
+
+# Calculate height in inches and assign to new R object
+my_height_inch <- my_height/2.54
+
+# check the value of the object 
+my_height_inch
+ 
+```
+
+> ### Comments
+>The comment character in R is `#`, anything to the right of a `#` in a script will be ignored by R. 
+It is very useful to leave notes and explanations in your scripts, we highly recommend that you get into the habit of commenting your code as it will help you to remember what you have done AND it will help us to help you if you encounter problems. 
+R Studio makes it easy to comment or uncomment a paragraph: after selecting the lines you  want to comment, press at the same time on your keyboard <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd>. If you only want to comment out one line, you can put the cursor at any location of that line (i.e. no need to select the whole line), then press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd>. **Comments are the most important lines in any R script!!**
+
+### Functions (or "commands")
+Almost all or our R coding uses functions, which are essentially bits of code that have been written to do something.
+ When we refer to functions we will generally do so following the convention `functionname()` the brackets are a giveaway that we are referring to a function.
+Functions take *arguments*, the arguments (inputs) are specified within the brackets. We have already used the `read.csv` function, and gave it the argument "yield.csv" to import some data into R.
+
+Lets use the function `sqrt()` as an example.
+The argument to this function is a value (or an object that contains a value) for which we want to calculate the square root.
+When we run a function it returns an output that is the square root of the input value.
+
+```{r function1-setup}
+my_height <- 175
+```
+
+
+```{r function1, exercise=TRUE, exercise.completion=FALSE}
+#run the function on a number
+ sqrt(10)
+# run the function on an object that contains a numberic value
+ sqrt(my_height)
+```
+
+The return ‘value’ of a function need not be numerical (like that of `sqrt()`), and it also does not need to be a single item: it can be a set of things, or even a dataset. 
+We’ll see that when we read data files into R.
+Arguments can be anything, not only numbers or filenames, but also other objects. 
+We can check what arguments a function is expecting using the `args()` function. 
+The argument to the `args()` function is the name of the function that we want information for, `args(functionname)` eg. `args(sqrt)`
+Exactly what each argument means differs per function, and can be further investigated using the help files (Remember the help pane, bottom left) which we will explain further later on. 
+
+### Data types
+R can deal with many different types of data and where it recognizes differences in data it may treat it differently. 
+It is helpful to understand the different types of data that you will most commonly encounter in R:
+
+**Numeric**
+
+Numeric data are numbers 
+```{r, eval = FALSE}
+
+1, 2, 3, 4.5, 6.78
+
+```
+
+**Character**
+
+Character data contain non numeric characters and are most often words.
+R understands character data to be everything enclosed within the quotation marks "".
+```{r, eval= FALSE}
+"Lion", "tiger", "bear"
+```
+
+When we use this type of data in R we have to remember the "" otherwise R will assume that we are referring to objects (that may not have been created) of the same name and it likely to return an error
+ 
+**Logical**
+
+R understands logical data as TRUE FALSE, different from character data so no "" required and note that it is case sensitive.
+
+```{r eval = FALSE}
+
+TRUE, FALSE
+
+```
+
+```{r, message =FALSE, warning= FALSE, echo = FALSE}
+
+p <- "R is case sensitive, we created an object called `my_height`, if we were to ask R for the value of the object `My_height` with a capital M we would see R return an error (unless we also have a variable called My_height stored in our environment)"
+p <- as.data.frame(p)
+names(p) <- "Case sensitivity in R"
+
+#big_border = fp_border(color="#9cdce6", width = 2)
+
+
+myft <- flextable(p) %>% 
+ bg(., bg = "#9cdce6", part = "header") %>% 
+bg(bg = "#9cdce6", part = "body") %>% 
+align(align = "left", part = "all") %>% 
+  bold(part = "header") %>% 
+  fontsize(part= "all", size = 12) %>% 
+set_table_properties(width = 1, layout = "autofit") %>% 
+border_remove()
+myft
+```
+
+
+
+### Data structures
+
+We have already learned how to *assign* a *value* to an *object* but to do more complicated things in R we often need to store more than one value in a single object. 
+
+#### Vectors
+
+A vector is the most common and basic data type in R, a vector is composed by a series of values, which can be either numbers or characters. We can assign a series of values to a vector using the `c()` function. For example we can create a vector of animal weights and assign it to a new object weight_kg
+
+```{r}
+weight_kg <- c(190, 310, 500)
+```
+
+We could also create a vector containing animal names
+
+```{r}
+animals <- c("lion", "tiger", "bear")
+```
+
+We can inspect the contents of a vector, using functions such as `length()` and `class()` by giving these functions the name of the vector that we want to inspect. 
+
+Using `length()` and `class()`  inspect the vectors `weight_kg` and `animals` that we have just created to see if you can work out what these functions do. Edit the following two lines to put the correct text inside the `()` brackets:
+
+```{r vect-inspect-setup}
+weight_kg <- c(190, 310, 500)
+animals <- c("lion", "tiger", "bear")
+```
+
+
+```{r vect-inspect, exercise=TRUE, exercise.completion=FALSE}
+
+length()
+class()
+```
+
+```{r vect-inspect-solution}
+
+length(weight_kg)
+class(weight_kg)
+
+length(animals)
+class(animals)
+
+```
+
+As we can see the above examples are vectors that contain a single data type, lets have a look at what happens when we have multiple data types.
+
+#### Data frames
+
+This is the best R object for storing your data in. It is basically a table of data, with columns of numbers or text. Another very common data structure in R is the Data frame, these may be more useful when we have different data types that we want to keep together. 
+
+Rather than combining `animals` and `weight_kg` into a single vector we can convert them into a data frame.
+
+
+```{r animals_dataframe-setup}
+weight_kg <- c(190, 310, 500)
+animals <- c("lion", "tiger", "bear")
+```
+
+```{r animals_dataframe, exercise=TRUE}
+# create an object in which to store the data frame
+animals_df <- data.frame(animals, weight_kg)
+
+# look at the data frame
+animals_df
+```
+
+We now have something that might look more familiar to those of us that are used to working with data in excel.
+
+We can use the `str()` function to look at the structure of the data frame.
+```{r animals_structure-setup}
+weight_kg <- c(190, 310, 500)
+animals <- c("lion", "tiger", "bear")
+animals_df <- data.frame(animals, weight_kg)
+```
+
+```{r animals_structure, exercise=TRUE}
+str(animals_df)
+```
+
+From this we can see that the data frame has 3 observations (rows) and 2 variables(columns), one called animals which contains character data and one called weight_kg which contains numeric data. 
+
+If we want to extract a specific column of a data frame we can do so using the `$` operator.
+
+```{r animals_column-setup}
+weight_kg <- c(190, 310, 500)
+animals <- c("lion", "tiger", "bear")
+animals_df <- data.frame(animals, weight_kg)
+```
+
+```{r animals_column, exercise=TRUE}
+animals_df$animals
+```
+
+Here we are telling R that from the `animmals_df` we want the column `$` that is called `animals`
+
+To extract a specific value we can *index* it using the square brackets [] to specify the position by location using dataframe[rownumber,columnnumber]
+
+```{r animals_rowcol-setup}
+weight_kg <- c(190, 310, 500)
+animals <- c("lion", "tiger", "bear")
+animals_df <- data.frame(animals, weight_kg)
+```
+
+```{r animals_rowcol, exercise=TRUE}
+animals_df[1,2]  # First row, second column
+animals_df[2,1]  # Second row, first column
+
+# Enter the name of the data.frame to display its contents
+animals_df
+```
+
+These operations can be useful when we are dealing with small data frames but often when we are working with data we have large datasets, perhaps contained in spreadsheets on your computer or downloaded from the net. Such information needs to be imported into R before we can start to interrogate the data frame. 
+
+Remember the kitchen analogy - Data contained in a file on your computer is like an ingredient in your cupboard, to be able to use it you first need to put it on the kitchen counter, which means we need to import it in  to R and assign it to an object so that it appears in our environment pane.
+
+
+## Importing and exporting data
+
+To be able to analyse our data in R we first have to import/read it in to R so that it is available to us in our environment (Taking it out of the cupboard and placing it on the counter). We will practice this for real in your first practical so don't worry if you don't understand everything here now.
+How we go about this varies slightly depending on the file that we are going to be using.
+In all cases we need to assign the information in the file to an object so our code will start with the name of the object we are creating and the `<-` symbol
+
+### Importing tables of data via CSV files
+
+We have already looked at CSV files, which you can export from Microsoft Excel using Excel's "Save As" option. This makes them the most useful "general" format for storing data.
+
+```{r, eval = FALSE, echo = TRUE}
+my_data_object <- read.csv(path = "Path_to_the_file.csv")
+
+```
+
+
+### Saving (exporting) outputs
+
+#### Saving data objects 
+Once we have manipulated our data we may want to save it as a file that we can then share with others. 
+Data can be saved to `.csv` files using the `write.csv` function.
+
+The code is similar to that used to read data in, it requires the filepath specifying where you want to save the file which includes the name that you want to give to the file, and it requires the name of the object that is being written (saved).
+
+```{r, eval = FALSE, echo = TRUE}
+# writing my_data_object to a file called my_output_data
+
+write.csv(my_data_object, path = "Data/my_output_data.csv")
+
+write_csv(my_data_object, path = "Data/my_output_data.csv")
+```
+
+
+#### Saving plots
+
+Once you have created your beautiful plots that support your analysis you will want to be able to copy them into your reports. 
+The easiest way to do this is to use the dropdown `Export` menu in the plots pane. 
+
+You can copy plots to the clipboard or save them as a file (specifying the file type, .png/.jpg/.tiff etc.)
+
+The popup preview that appears when you choose to copy a plot to the clipboard or to save it as an image allows you to specify the size that you want the image to be.
+Altering the size of your plot here will give you a much clearer plot than if you re-size a copied or saved plot after adding it to your destination document. 
+
+```{r, echo = FALSE}
+knitr::include_graphics("images/plot_popup.png")
+```
+
+You can specify the image size using the numbers or you can grab the plot by the triangle in the bottom right corner of the preview pane and drag the plot to the desired size. 
+
+<!-- ## Basic manipulations -->
+<!-- - selecting -->
+<!-- - filtering -->
+
+<!-- More on [data manipulation](http://datacarpentry.org/R-ecology-lesson/03-dplyr.html) -->
+
+<!-- ## Plotting  -->
+
+<!-- More on [data visualisation](http://datacarpentry.org/R-ecology-lesson/04-visualization-ggplot2.html) -->
+
+<!-- Kieran Healeys data viz [book](https://socviz.co/index.html#what-you-will-learn) -->
+
+## Getting help
+
+**Using the help function**
+Functions are documented in R's help system, you can access the help file for a function by typing in the search bar of the help pane.
+
+These help files can be quite daunting (and difficult to understand) but they do all follow the same structure. The image below breaks this down a bit to try and make the it a bit easier for you to actually understand how to use the help files to actually help!  
+
+```{r, echo = FALSE}
+knitr::include_graphics("images/read_help.png")
+```
+
+More detail about the sections of the help files can be found [here](https://socviz.co/appendix.html#a-little-more-about-r)
+
+**Error messages**
+
+Error messages can be difficult themselves to decode, the below graphic brakes things down a bit
+```{r, echo = FALSE}
+knitr::include_graphics("images/rex_an_error.png")
+```
+
+you can try googling them or searching [Rseek](https://rseek.org/) a search engine specifically for R related materials. 
+
+
+
+**Still stuck?**
+Please do not worry. R has a steep initial learning curve, so expect to hit problems.
+
+* Ask your classmates, they might have encountered the same or similar problem!
+* Make use of **Microsoft Teams BIO2020**. Ask questions of staff and **answer questions from other students**
+* Check out the [`#`rstats](https://twitter.com/hashtag/rstats?lang=en) on twitter for useful advice.
+
+The community or R users are extremely welcoming and supportive so just remember you're not alone!
+
+
+```{r, echo = FALSE, fig.cap="artwork by @allisonhorst"}
+knitr::include_graphics("images/code_hero.png")
+```
+
+
+
+
+
+## Further resources 
+
+Want to keep learning
+
+There are A LOT of excellent resources out there for learning R, some of those that we recommend are listed here and should be enough to keep you going: 
+
+[learnR4free](http://learnR4free.com)
+
+[Data science box](http://datasciencebox.org)
+
+[Data carpentry](https://datacarpentry.org/R-ecology-lesson/index.html)
+
+[Our Coding Club](https://ourcodingclub.github.io/)
+
+These sites are for reference only.
+
+
