@@ -4,6 +4,7 @@ author: "BIO2020"
 output:
   word_document:
     number_sections: true
+    reference_docx: template.docx
   html_document:
     df_print: paged
     number_sections: true

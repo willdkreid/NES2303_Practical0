@@ -3,8 +3,9 @@ title: "BIO2020 Course Handbook Experimental Design and Statistics 2022-2023"
 author: "Roy Sanderson"
 date: "08/09/2022"
 output:
+  word_document:
+    reference_docx: template.docx
   html_document: default
-  word_document: default
   pdf_document: default
 ---
 
