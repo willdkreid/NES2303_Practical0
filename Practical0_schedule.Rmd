@@ -1,6 +1,6 @@
 ---
 title: "Navigating R and RStudio"
-author: "NES2303"
+author: "NES2025"
 output:
   word_document:
     number_sections: true
@@ -29,7 +29,7 @@ The overall aim of this practical is to help you become more familiar with RStud
 R is the basic underlying computer software you use to undertake analyses of biological data. RStudio is a separate programme that creates an "Integrated Development Environment" (IDE) that makes it easier to do data science. Think of the differences between doing arithmetic on a hand-calculator vs Microsoft Excel. RStudio defaults to automatically uses R, but can handle other computer languages such as C++, HTML and Python.
 
 ## Starting RStudio
-Campus computers have the software installed and NES2303 assumes you will be using an NUIT-managed PC. Both R and RStudio are free download from [download the R software](https://cran.r-project.org/) and [Download the R Studio desktop software](https://rstudio.com/products/rstudio/#rstudio-desktop) respectively. However, if you run it on your own laptop or MacBook we **will not provide you with any technical support** as there is too much variation between operating systems, PC configuration etc.
+Campus computers have the software installed and NES2025 assumes you will be using an NUIT-managed PC. Both R and RStudio are free download from [download the R software](https://cran.r-project.org/) and [Download the R Studio desktop software](https://rstudio.com/products/rstudio/#rstudio-desktop) respectively. However, if you run it on your own laptop or MacBook we **will not provide you with any technical support** as there is too much variation between operating systems, PC configuration etc.
 
 You should have a 'search' bar at the bottom left of your NUIT Windows PC, labelled _Type here to search_. In it type **_RStudio_** and the launch icon should be displayed for you to click on:
 
@@ -110,14 +110,14 @@ Packages are hosted on the Comprehensive R Archive or CRAN. As there are now so 
 ## How to install and activate a package from CRAN
 Using a package is a 2-step process:
 
-* Install a package. This downloads software from the internet onto your computer. **It only has to be done once**. If you use NUIT cluster room PCs most of the packages you need for NES2303 should already be available so you can skip this step. Use `install.packages("package_name")` to install a package.
+* Install a package. This downloads software from the internet onto your computer. **It only has to be done once**. If you use NUIT cluster room PCs most of the packages you need for NES2025 should already be available so you can skip this step. Use `install.packages("package_name")` to install a package.
 * Activate a package. This makes the extra R commands available for you to use. **It has to be done every time you use R**. Use the command `library(package_name)` to activate a package.
 
 A common mistake is to forget to use the `library()` command. I try to remember to use it first in any R session.
 
 
 ## Installing an R package (For future reference: **not needed for this practical**)
-R has a special function called `install.packages()` that allows you download software from the internet onto your PC. On an NUIT computer it will install it into a networked folder, so it should be available for you on any NUIT computer. **Note** Most of the packages you will need for NES2303 should already have been installed onto the NUIT cluster room PCs, so you will only have to activate them. If working on your own laptop or MacBook (see below), or using a package not already pre-installed by NUIT, then see below (**unsupported**).
+R has a special function called `install.packages()` that allows you download software from the internet onto your PC. On an NUIT computer it will install it into a networked folder, so it should be available for you on any NUIT computer. **Note** Most of the packages you will need for NES2025 should already have been installed onto the NUIT cluster room PCs, so you will only have to activate them. If working on your own laptop or MacBook (see below), or using a package not already pre-installed by NUIT, then see below (**unsupported**).
 
 On the left of your RStudio screen you should see a large window headed **Console** which will contain introductory text about the R version you are usin etc. On my PC it shows as version 4.0.2 but you may have a more recent version:
 
@@ -137,8 +137,8 @@ Normally lots of output is generated as packages are downloaded from the interne
 Use the `library()` function to activate an R package. Installing an R package simply puts the extra software on your PC, but it does not make it available for use. This is because you may have many packages eventually installed, that might have commands with identical names but which do different things. To take a simple example, in some packages the `plot` command will create a map, whereas in other packages it might display a genome phylogeny, and you would not want to confuse them. Therefore, in any R session you generally only make available the packages you need. To make the commands from a package available to use, enter the `library` command followed by the package name.
 
 
-## The NES2303 R package
-For this module I have created a small R package called `NES2303`. This provides you a few useful extras that should make learning R easier:
+## The NES2025 R package
+For this module I have created a small R package called `NES2025`. This provides you a few useful extras that should make learning R easier:
 
 * automatic installation and activation of the `mosaic` and `ggformula` packages that aid "goal-oriented" methods for data science and simple plots
 * automatic installation and activation of the `ggplot2` and `tidyr` packages for improved plots and manipulation of data
@@ -147,28 +147,28 @@ For this module I have created a small R package called `NES2303`. This provides
 * customised functions for easier analysis of multiple response data
 * customised functions to display and label graphical analyses of multiple response data
 
-As the `NES2303` package is solely for use by Newcastle University students it is unsurprisingly not available on CRAN. It should already be available on the NUIT PC cluster, so all you have to do is "activate" the package to make the commands available.
+As the `NES2025` package is solely for use by Newcastle University students it is unsurprisingly not available on CRAN. It should already be available on the NUIT PC cluster, so all you have to do is "activate" the package to make the commands available.
 
 ```{r, eval=FALSE}
-library(NES2303)
+library(NES2025)
 ```
 
 
-`Welcome to the NES2303 package to support teaching`
+`Welcome to the NES2025 package to support teaching`
 
-If that is displayed then the `NES2303` package has been successfully activated and is ready for use.
+If that is displayed then the `NES2025` package has been successfully activated and is ready for use.
 
 
-## Installing the `NES2303` package on your own laptop/Macbook (**unsupported**)
+## Installing the `NES2025` package on your own laptop/Macbook (**unsupported**)
 Past experience has indicated that sometimes students want to use their own PCs or MacBooks. We cannot provide you with help on this as every student's setup is different, but these general guidelines may help. Please do not ask for help on using your own laptop or MacBook in the first few practicals until you are confident in using R.
 
-Most R packages are stored on the CRAN website, but as the `NES2303` package is just for this course, its installation is slightly different. **Note** we are unable to provide you with any support on installing it onto your own PC. You can do most of the NES2303 course using the `mosaic`, `tidyr`, `car` and `vegan` packages, although some commands are more difficult initially. To install `NES2303` on your own machine you would type into the Console:
+Most R packages are stored on the CRAN website, but as the `NES2025` package is just for this course, its installation is slightly different. **Note** we are unable to provide you with any support on installing it onto your own PC. You can do most of the NES2025 course using the `mosaic`, `tidyr`, `car` and `vegan` packages, although some commands are more difficult initially. To install `NES2025` on your own machine you would type into the Console:
 
 
 ```{r, eval=FALSE}
 install.packages("remotes")
 library(remotes)
-install_github("rasanderson/NES2303")
+install_github("rasanderson/NES2025")
 ```
 
 
@@ -182,7 +182,7 @@ install.packages("tidyr")
 install.packages("vegan")
 ```
 
-You will have to activate them individually with their own `library` calls, rather than by a single call to `NES2303`:
+You will have to activate them individually with their own `library` calls, rather than by a single call to `NES2025`:
 
 ```{r, eval=FALSE}
 library(mosaic)
@@ -190,14 +190,14 @@ library(car)
 library(tidyr)
 ```
 
-The `vegan` package is needed for the last two practicals later in the Semester, but hopefully we will have the `NES2303` package working for you by then.
+The `vegan` package is needed for the last two practicals later in the Semester, but hopefully we will have the `NES2025` package working for you by then.
 
 
 # RStudio projects
 An RStudio project is a special folder where you can safely keep all the commands for your analyses and your data files together. I generally create a separate RStudio project folder for each experiment or survey that I am involved in.
 
 ## Create an RStudio project (Just needed once in this first practical)
- We are going to start by creating an RStudio Project called 'NES2303' to keep all of our work relating to the 'NES2303' course together in one place. Later in your degree you will want to create new RStudio projects for other experiments or work.
+ We are going to start by creating an RStudio Project called 'NES2025' to keep all of our work relating to the 'NES2025' course together in one place. Later in your degree you will want to create new RStudio projects for other experiments or work.
 
 To create a new project click on the main menu on  `File` > `New Project`  
 You should now see this popup window, on which you should select **New directory** 
@@ -217,18 +217,18 @@ Finally, the following window, entitled **Create New Project** should appear:
 
 In this window complete two sections:
 
-* The **Directory name**. This is the name of the folder to store your files containing records of your analyses and your data . For convenience, call it **NES2303** as shown above.
+* The **Directory name**. This is the name of the folder to store your files containing records of your analyses and your data . For convenience, call it **NES2025** as shown above.
 * The section **Create project as subdirectory of:** Click on the **Browser** button and navigate to **Documents** or **My Documents**. The exact title will differ depending on your NUIT settings. This wants to be where you normally store all your folders and files. On my own PC, the "My Documents" area has a "shortcut" name of **~** which you can see displayed above. The setup might be slightly different on your PC.
 
 Finally, click on the **Create project** button at the bottom and you should now see the name of your project displayed in the top right hand side of your R Studio window. 
 
 
-## How to start RStudio with your project (all future practicals in NES2303)
+## How to start RStudio with your project (all future practicals in NES2025)
 Once you have created a project, all you need to do in is:
 
 * Start RStudio
 * Click on **File -> Recent projects...**
-* Select **NES2303** from the list
+* Select **NES2025** from the list
 
 
 # Navigating RStudio
@@ -299,10 +299,10 @@ There are loads of really great chefs (coders) in the world who have already fig
 
 
 # Download files from Canvas and import data
-In NES2303 all of the data will be provided for you on Canvas for import into R. When you work independently, you will probably be entering data in Microsoft Excel. Either way there are a couple of 'gotchas' to look out for. Download the Excel File `yield.xlsx` from Canvas - you can open it in Excel and look at it, but don't edit it or make any changes to it. The file contains crop growth in three different soil types. Now, in your Script window (top left) type the following text:
+In NES2025 all of the data will be provided for you on Canvas for import into R. When you work independently, you will probably be entering data in Microsoft Excel. Either way there are a couple of 'gotchas' to look out for. Download the Excel File `yield.xlsx` from Canvas - you can open it in Excel and look at it, but don't edit it or make any changes to it. The file contains crop growth in three different soil types. Now, in your Script window (top left) type the following text:
 
 ```{r, eval=FALSE}
-library(NES2303) # or library(mosaic) if NES2303 did not install
+library(NES2025) # or library(mosaic) if NES2025 did not install
 pract0_dat<-read.csv("yield.csv")
 summary(pract0_dat)
 mean(yield~soil,data=pract0_dat)
@@ -318,8 +318,8 @@ A few key points:
 ```{r, eval=FALSE}
 # Example script to check setup is working
 
-# Activate the NES2303 package so extra commands available
-library(NES2303) # or library(mosaic) if NES2303 did not install
+# Activate the NES2025 package so extra commands available
+library(NES2025) # or library(mosaic) if NES2025 did not install
 
 # Import crop yields for different soils into a table pract0_dat
 pract0_dat <- read.csv("yield.csv")
@@ -331,19 +331,19 @@ summary(pract0_dat)
 mean(yield ~ soil, data = pract0_dat)
 ```
 
-Now save your R script. Click on **File -> Save** from the RStudio main menu, or if you prefer the save icon, and save the script as `practical0.R`. Next run each line of your script. Click on the `library(NES2303)` line and hit the **Ctl-Shift-Enter** keys simultaneously. This key combination sends a line from your script to the Console window where it is executed. The command should run without displaying anything as `NES2303` is probably already activated. Your cursor should jump to the `read.csv` line. (If you had problems with the `NES2303` package, simply type `library(mosaic)` instead).
+Now save your R script. Click on **File -> Save** from the RStudio main menu, or if you prefer the save icon, and save the script as `practical0.R`. Next run each line of your script. Click on the `library(NES2025)` line and hit the **Ctl-Shift-Enter** keys simultaneously. This key combination sends a line from your script to the Console window where it is executed. The command should run without displaying anything as `NES2025` is probably already activated. Your cursor should jump to the `read.csv` line. (If you had problems with the `NES2025` package, simply type `library(mosaic)` instead).
 
 However, when you hit Ctl-Shift-Enter on the `read.csv` line you should get the following error:
 
 ![](images/file_import_first_error.png)
 
-What has gone wrong? We've just downloaded the file from Canvas yet R claims it is missing? The problem is that when you downloaded the data file from Canvas, it placed it into your **Downloads** folder. You need to move it to the **NES2303** folder, that already contains your project settings file, and your `practical0.R` file:
+What has gone wrong? We've just downloaded the file from Canvas yet R claims it is missing? The problem is that when you downloaded the data file from Canvas, it placed it into your **Downloads** folder. You need to move it to the **NES2025** folder, that already contains your project settings file, and your `practical0.R` file:
 
 * Start up the File Manager either from the main Windows menu, or by entering "File Manager" in the search bar
 * Navigate to your Downloads folder
 * Locate the `yield` file in your Downloads folder
 * Right-click on your `yield` file and select **Copy**
-* Navigate to your NES2303 folder, Right-click and select **Paste**
+* Navigate to your NES2025 folder, Right-click and select **Paste**
 * Go back to RStudio, and in the Files tab (bottom right) click on the "refresh" button (a small circlur arrow on the right of the files tab). You should see the `yield` file listed.
 
 Now go back to your R script and try re-running the `read.csv` command by clicking on the line, and hitting the Ctrl-Shift-Enter key combination again. BUT **it does not work**. You get the same error message!! Why??
@@ -353,7 +353,7 @@ This is such a common error, that I thought it worth emphasising it. Some of you
 * CSV stands for "comma separated value" and is a plain text, simple file, that can be read by hundreds of different programs and apps
 * A standard Microsoft Excel file is a commercial-format file, that can be imported by a more limited range of software. It is much more complex as it can contain multiple tables, forumlae, graphs etc.
 
-So, finally we need to convert our Microsoft Excel file. Go back to your File Manager, navigate to the NES2303 folder (it might already be open) and double-click on the `yield` file to open it in Microsoft Excel. Then click on the **File -> Save As** option, and in the drop-box below the filename, select the CSV option:
+So, finally we need to convert our Microsoft Excel file. Go back to your File Manager, navigate to the NES2025 folder (it might already be open) and double-click on the `yield` file to open it in Microsoft Excel. Then click on the **File -> Save As** option, and in the drop-box below the filename, select the CSV option:
 
 
 ![](images/save_as_excel.png)
@@ -364,12 +364,12 @@ Now close Excel; you may get a warning claiming you haven't saved your file (you
 
 There are four files listed, although the default settings in File Manager does not give their full names (last few letters are omitted) which can cause confusion
 
-* `NES2303` which is actually `NES2303.RProj` and contains your RStudio project settings
+* `NES2025` which is actually `NES2025.RProj` and contains your RStudio project settings
 * `practical0` which is actuallry `practical0.R` and contains your script with R commands
 * `yield` which is actually `yield.csv` in Comma Separated Value format
 * `yield` which is actuall `yield.xlsx` in Microsoft Excel format
 
-Look very carefully and you can see that the icons for the two yield files are slightly different, as one has **,a** in it. You can change the settings in File Manager so that full file names with the final "extension" are showing. For the rest of the NES2303 course all the files will be CSV format, so you will not have this problem. When you enter your own data into Excel for use in RStudio, you need to be aware of it.
+Look very carefully and you can see that the icons for the two yield files are slightly different, as one has **,a** in it. You can change the settings in File Manager so that full file names with the final "extension" are showing. For the rest of the NES2025 course all the files will be CSV format, so you will not have this problem. When you enter your own data into Excel for use in RStudio, you need to be aware of it.
 
 Go back to RStudio. Now you should be able to re-run your `read.csv` line. If it is successful, nothing will be displayed in the console, but in your Environment window (top right panel) you should see the table (data frame) `pract0_dat` listed, and when you run the `summary(pract0_dat)` and `mean(yield ~ soil, data = pract0_dat)` commands you should see:
 
@@ -390,7 +390,7 @@ Success! Please let myself or one of the demonstrators know if you have problems
 
 **Where to store your CSV files?**
 
-You can store them either in your main project folder. Sometimes if you have lots of data files this can get confusing, so I generally recommend creating a folder called **`Data`** inside your `NES2303` project folder, and putting your CSV files there. The only difference is you need to change the `read.csv` command from:
+You can store them either in your main project folder. Sometimes if you have lots of data files this can get confusing, so I generally recommend creating a folder called **`Data`** inside your `NES2025` project folder, and putting your CSV files there. The only difference is you need to change the `read.csv` command from:
 
 `pract0_dat <- read.csv("yield.csv")`
 
@@ -398,7 +398,7 @@ to
 
 `pract0_dat <- read.csv("Data/yield.csv")`
 
-My preference (and recommendation to you) is to put all your CSV files into a `Data` subfolder in your `NES2303` folder, in which case you'll need to remember to add `Data/` to any `read.csv` commands. That way your NES2303 folder is less likely to get cluttered as you go through the module.
+My preference (and recommendation to you) is to put all your CSV files into a `Data` subfolder in your `NES2025` folder, in which case you'll need to remember to add `Data/` to any `read.csv` commands. That way your NES2025 folder is less likely to get cluttered as you go through the module.
 
 # Working with data
 ## Using R as a calculator
@@ -746,7 +746,7 @@ you can try googling them or searching [Rseek](https://rseek.org/) a search engi
 Please do not worry. R has a steep initial learning curve, so expect to hit problems.
 
 * Ask your classmates, they might have encountered the same or similar problem!
-* Make use of **Microsoft Teams NES2303**. Ask questions of staff and **answer questions from other students**
+* Make use of **Microsoft Teams NES2025**. Ask questions of staff and **answer questions from other students**
 * Check out the [`#`rstats](https://twitter.com/hashtag/rstats?lang=en) on twitter for useful advice.
 
 The community or R users are extremely welcoming and supportive so just remember you're not alone!
@@ -762,7 +762,7 @@ The community or R users are extremely welcoming and supportive so just remember
 Please look at the **Ten-minute videos** (TMV) that provide clear background information **before** you attend each set of practicals. Understanding R requires you to understand what it is doing, and how to read its often cryptic outputs.
 
 ## Books, online guides
-See the Canvas reading list for NES2303. I have updated this with new resources for 2022, with most books in electronic format. There are also lots of excellent resources out there for learning R, some of those that we recommend are listed here and should be enough to keep you going 
+See the Canvas reading list for NES2025. I have updated this with new resources for 2022, with most books in electronic format. There are also lots of excellent resources out there for learning R, some of those that we recommend are listed here and should be enough to keep you going 
 
 [learnR4free](http://learnR4free.com)
 
