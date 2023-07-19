@@ -20,7 +20,7 @@ library(mosaic)
 # Aims and objectives of Practical 0
 The overall aim of this practical is to help you become more familiar with RStudio, what its main panels are for, how to download data from Canvas, and import it into R. Specific objectives include:
 
-1. explain the concept of RStudio projects to allow you to store data, files containing R commands (known as scripts), and the four main panels in RStudio
+1. explain the concept of RStudio projects to allow you to store data, files that contain R commands (known as scripts), and the four main panels in RStudio
 2. demonstrate the value of .csv files (comma separated files) as these can be read / written by both R and Microsoft Excel, and the functions to do this.
 3. understand free R packages to extend the power of R. How to install and load packages for use.
 4. how to calculate simple summary statistics of the data you have imported into R
